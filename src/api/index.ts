@@ -1,5 +1,7 @@
 import * as todo from './todo';
 
-export default {
+const api = {
   todoService: todo,
 };
+
+export default api;

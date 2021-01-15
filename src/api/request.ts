@@ -2,7 +2,9 @@
 import axios, { AxiosError } from "axios";
 // import { logoutUser } from "../redux/auth/types";
 
-const request = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+const request = axios.create({
+  // baseURL: process.env.REACT_APP_API_URL
+});
 
 // axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -11,7 +13,7 @@ request.interceptors.request.use((config) => {
   /* const {
     user: { token },
   } = store.getState(); */
-  const requiresNoToken = config.headers["noToken"];
+  // const requiresNoToken = config.headers["noToken"];
   const newConfig = { ...config };
   delete newConfig.headers["noToken"];
 

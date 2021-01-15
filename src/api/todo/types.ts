@@ -1,10 +1,10 @@
 import { Message } from "../types";
 
 export interface Todo {
-  _id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
+  id: number;
+  title: string;
+  userID: number;
+  completed: boolean;
 }
 
 export interface CreateTodoPayload {
@@ -16,6 +16,5 @@ export interface CreateTodoResponse {
 }
 
 export interface GetTodoResponse {
-  isAuthenticated: boolean;
   todos: Todo[];
 }

@@ -1,14 +1,12 @@
 import './App.css';
-import { useObserver } from 'mobx-react-lite';
-import { useRootStore } from './store/RootStateContext';
 import { FC } from 'react';
+import Todos from './components/Todos';
 
-const App: FC<{}> = () => {
-  const { todoStore } = useRootStore();
-  return useObserver(() => {
+const App: FC<{}> = () => (
+  <div>
     <h1>This is the application, LOL!!!</h1>
-    { JSON.stringify(todoStore.todos.data) }
-  });
-}
+    <Todos />
+  </div>
+);
 
 export default App;
