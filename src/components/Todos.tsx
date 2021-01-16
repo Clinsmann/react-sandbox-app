@@ -6,15 +6,11 @@ const Todos: FC = () => {
   const { todoStore } = useContext(RootStoreContext);
   return (
     <div style={{ padding: '50px' }}>
-      <h1>This is the application, LOL!!!</h1>
+      <h1>Get Todos App</h1>
       <button onClick={() => todoStore.loadTodos()}>Get Todos</button>
       {todoStore.todos.pending && (<h4>todos loading...</h4>)}
       {todoStore.todos.data?.map(todo => (
-        <h3
-          key={todo.id}
-          style={{ fontWeight: 'normal', textTransform: "capitalize" }}>
-          {todo.title}
-        </h3>
+        <div key={todo.id} style={{ textTransform: "capitalize", padding: '5px 0' }}>{todo.title}</div>
       ))}
     </div>
   );

@@ -6,9 +6,11 @@ configure({ enforceActions: "always" });
 
 export class RootStore {
   todoStore: TodoStore;
+  //define more stores here
 
   constructor() {
     this.todoStore = new TodoStore(this);
+    //instantiate more stores here
   }
 }
 

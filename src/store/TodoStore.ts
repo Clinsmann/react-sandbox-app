@@ -1,5 +1,5 @@
-import { RootStore } from "../index";
-import { getTodos } from '../../api';
+import { RootStore } from "./index";
+import { getTodos } from '../api';
 import { observable, action, makeObservable } from 'mobx';
 
 export interface Todo {
