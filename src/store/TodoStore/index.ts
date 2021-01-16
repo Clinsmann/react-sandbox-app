@@ -1,7 +1,7 @@
 import api from '../../api'
 import { Todo } from '../../api/todo/types';
 import { RootStore } from "../RootState";
-import { observable, action, makeObservable } from 'mobx';
+import { observable, action, makeObservable, runInAction } from 'mobx';
 
 export interface StoreStateInit {
   error: string | null;
@@ -31,15 +31,27 @@ export default class TodoStore {
 
   @action loadTodos = async () => {
     try {
-      this.todos = { ...this.todos, pending: true, data: null };
+      this.todos.pending = true;
+      runInAction(() => { this.todos.pending = true; })
       const response: any = await api.todoService.getTodos();
-      this.todos = { ...this.todos, pending: false, data: response.data };
+      this.updateTodosData(response.data);
+      // this.todos.pending = false;
+
+      runInAction(() => { this.todos.pending = false; })
     } catch (error) {
       console.log(error);
       const errorMessage = error.response.status === 401 ? "User not authorized" :
         (error.response.data.message.body || "Error fetching todos");
       this.todos.error = errorMessage;
     }
+  }
+
+  @action updateTodosPending = (state: boolean) => {
+    this.todos.pending = state
+  }
+
+  @action updateTodosData = (todos: Todo[]) => {
+    this.todos.data = todos
   }
 
   @action addTodo = (todo: string) => {
