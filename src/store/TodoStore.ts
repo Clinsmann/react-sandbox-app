@@ -38,6 +38,7 @@ export default class TodoStore {
   @action loadTodos = async () => {
     try {
       this.setTodosPending(true);
+      this.setTodosData([]);
       this.setTodosData(await getTodos());
       this.setTodosPending(false);
     } catch (error) {
