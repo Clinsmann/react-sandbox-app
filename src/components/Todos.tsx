@@ -1,15 +1,22 @@
-import { observer } from 'mobx-react-lite';
-import { RootStoreContext } from '../store/RootState';
 import { FC, useContext } from 'react';
+import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../store';
 
 const Todos: FC = () => {
-  const rootStore = useContext(RootStoreContext);//TODO Learn
+  const { todoStore } = useContext(RootStoreContext);
   return (
-    <>
-      <button onClick={() => rootStore.todoStore.loadTodos()}>Get Todos</button>
-      {rootStore.todoStore.todos.pending && <h4>todos loading...</h4>}
-      {rootStore.todoStore.todos.data?.map(todo => <h4 key={todo.id}>{todo.title}</h4>)}
-    </>
+    <div style={{ padding: '50px' }}>
+      <h1>This is the application, LOL!!!</h1>
+      <button onClick={() => todoStore.loadTodos()}>Get Todos</button>
+      {todoStore.todos.pending && (<h4>todos loading...</h4>)}
+      {todoStore.todos.data?.map(todo => (
+        <h3
+          key={todo.id}
+          style={{ fontWeight: 'normal', textTransform: "capitalize" }}>
+          {todo.title}
+        </h3>
+      ))}
+    </div>
   );
 };
 

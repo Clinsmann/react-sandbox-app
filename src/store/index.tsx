@@ -4,7 +4,7 @@ import { createContext } from "react";
 
 configure({ enforceActions: "always" });
 
-export class RootStore {//TODO Learn
+export class RootStore {
   todoStore: TodoStore;
 
   constructor() {

@@ -1,7 +1,2 @@
-import * as todo from './todo';
-
-const api = {
-  todoService: todo,
-};
-
-export default api;
+export const getTodos = async () =>
+  fetch('https://jsonplaceholder.typicode.com/users/1/todos').then(r => r.json());

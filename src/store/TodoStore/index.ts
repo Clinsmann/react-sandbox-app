@@ -1,7 +1,13 @@
-import api from '../../api'
-import { Todo } from '../../api/todo/types';
-import { RootStore } from "../RootState";
-import { observable, action, makeObservable, runInAction } from 'mobx';
+import { RootStore } from "../index";
+import { getTodos } from '../../api';
+import { observable, action, makeObservable } from 'mobx';
+
+export interface Todo {
+  id: number;
+  title: string;
+  userID: number;
+  completed: boolean;
+}
 
 export interface StoreStateInit {
   error: string | null;
@@ -21,47 +27,34 @@ const storeStateInit = {
 }
 
 export default class TodoStore {
-  rootStore: RootStore; //TODO Learn
+  rootStore: RootStore;
   @observable todos: TodoFormState = { ...storeStateInit };
 
   constructor(rootStore: RootStore) {
-    makeObservable(this);//TODO Learn
+    makeObservable(this);
     this.rootStore = rootStore;
   }
 
   @action loadTodos = async () => {
     try {
-      this.todos.pending = true;
-      runInAction(() => { this.todos.pending = true; })
-      const response: any = await api.todoService.getTodos();
-      this.updateTodosData(response.data);
-      // this.todos.pending = false;
-
-      runInAction(() => { this.todos.pending = false; })
+      this.setTodosPending(true);
+      this.setTodosData(await getTodos());
+      this.setTodosPending(false);
     } catch (error) {
-      console.log(error);
-      const errorMessage = error.response.status === 401 ? "User not authorized" :
-        (error.response.data.message.body || "Error fetching todos");
-      this.todos.error = errorMessage;
+      console.log({ error });
+      this.setTodosError("Error fetching todos");
     }
   }
 
-  @action updateTodosPending = (state: boolean) => {
-    this.todos.pending = state
+  @action setTodosPending = (state: boolean) => {
+    this.todos.pending = state;
   }
 
-  @action updateTodosData = (todos: Todo[]) => {
-    this.todos.data = todos
+  @action setTodosError = (state: string) => {
+    this.todos.error = state;
   }
 
-  @action addTodo = (todo: string) => {
-    if (this.todos.data?.length) {
-      this.todos.data.push({
-        id: 20,
-        title: todo,
-        completed: false,
-        userID: 10
-      });
-    }
+  @action setTodosData = (todos: Todo[]) => {
+    this.todos.data = todos;
   }
 }

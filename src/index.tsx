@@ -1,12 +1,11 @@
-import './index.css';
-import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Todos from './components/Todos';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Todos />
   </React.StrictMode>,
   document.getElementById('root')
 );
