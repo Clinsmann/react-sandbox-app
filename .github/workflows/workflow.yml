@@ -1,30 +1,17 @@
-  
-
-name: heroku-deploy
-
-
+name: "HEROKU-DEPLOY-STATING"
 on:
   push:
-    branches: [ master ]
-
-
+    branches:
+      - master
 jobs:
- 
   build:
-   
     runs-on: ubuntu-latest
-
-    
     steps:
-    
-    - uses: actions/checkout@v2
-    - uses: akhileshns/heroku-deploy@v3.4.6
-      with:
+      - uses: actions/checkout@v2
+      - uses: clinsmann/heroku-deploy@v3.4.6
+        with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "react-sandbox-app"
-          heroku_email: "ibeanuhillary@gmail.com"
-
-
-   
-    - name: Run a one-line script
-      run: echo successfully run
+          heroku_email: "ibeanuhillary@gmail.com"   
+      - name: Run a one-line script
+        run: echo successfully run
