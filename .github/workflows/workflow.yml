@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: clinsmann/heroku-deploy@v3.4.6
+      - uses: idoberko2/dokku-deploy-github-action@v1
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "react-sandbox-app"
